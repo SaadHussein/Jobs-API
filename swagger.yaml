@@ -1,0 +1,247 @@
+openapi: 3.0.0
+info:
+  title: Jobs API
+  contact: {}
+  version: "1.0"
+servers:
+  - url: http://example.com
+    variables: {}
+  - url: http://localhost:3000/api/v1
+    description: ""
+    variables: {}
+paths:
+  /auth/register:
+    post:
+      tags:
+        - Authentication
+      summary: register
+      operationId: register
+      parameters: []
+      requestBody:
+        description: ""
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: "#/components/schemas/registerrequest"
+                - example:
+                    name: Saad
+                    email: Saaad@gmail.com
+                    password: "12345678"
+            example:
+              name: Saad
+              email: Saaad@gmail.com
+              password: "12345678"
+        required: true
+      responses:
+        "200":
+          description: ""
+          headers: {}
+      deprecated: false
+      security: []
+  /auth/login:
+    post:
+      tags:
+        - Authentication
+      summary: login
+      operationId: login
+      parameters: []
+      requestBody:
+        description: ""
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: "#/components/schemas/loginrequest"
+                - example:
+                    email: Saaad@gmail.com
+                    password: "12345678"
+            example:
+              email: Saaad@gmail.com
+              password: "12345678"
+        required: true
+      responses:
+        "200":
+          description: ""
+          headers: {}
+      deprecated: false
+      security: []
+  /jobs:
+    post:
+      tags:
+        - Jobs
+      summary: Create Job
+      operationId: CreateJob
+      parameters: []
+      requestBody:
+        description: ""
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: "#/components/schemas/CreateJobRequest"
+                - example:
+                    company: Line Group
+                    position: Frontend
+                    createdBy: 65dfa16c403fdcb0e32148fc
+            example:
+              company: Line Group
+              position: Frontend
+              createdBy: 65dfa16c403fdcb0e32148fc
+        required: true
+      responses:
+        "200":
+          description: ""
+          headers: {}
+      deprecated: false
+      security:
+        - bearer: []
+    get:
+      tags:
+        - Jobs
+      summary: Get All Jobs
+      operationId: GetAllJobs
+      parameters: []
+      responses:
+        "200":
+          description: ""
+          headers: {}
+      deprecated: false
+      security:
+        - bearer: []
+  /jobs/{id}:
+    parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+        description: The Job ID
+    get:
+      tags:
+        - Jobs
+      summary: Get Job
+      operationId: GetJob
+      parameters: []
+      responses:
+        "200":
+          description: ""
+          headers: {}
+      deprecated: false
+      security:
+        - bearer: []
+
+    patch:
+      tags:
+        - Jobs
+      summary: Update Job
+      operationId: UpdateJob
+      parameters: []
+      requestBody:
+        description: ""
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: "#/components/schemas/UpdateJobRequest"
+                - example:
+                    company: Saaad
+                    position: Backend
+            example:
+              company: Saaad
+              position: Backend
+        required: true
+      responses:
+        "200":
+          description: ""
+          headers: {}
+      deprecated: false
+      security:
+        - bearer: []
+    delete:
+      tags:
+        - Jobs
+      summary: Delete Job
+      operationId: DeleteJob
+      parameters: []
+      responses:
+        "200":
+          description: ""
+          headers: {}
+      deprecated: false
+      security:
+        - bearer: []
+components:
+  schemas:
+    registerrequest:
+      title: Register Request
+      required:
+        - name
+        - email
+        - password
+      type: object
+      properties:
+        name:
+          type: string
+        email:
+          type: string
+        password:
+          type: string
+      example:
+        name: Saad
+        email: Saaad@gmail.com
+        password: "12345678"
+    loginrequest:
+      title: Login Request
+      required:
+        - email
+        - password
+      type: object
+      properties:
+        email:
+          type: string
+        password:
+          type: string
+      example:
+        email: Saaad@gmail.com
+        password: "12345678"
+    CreateJobRequest:
+      title: Create Job Request
+      required:
+        - company
+        - position
+        - createdBy
+      type: object
+      properties:
+        company:
+          type: string
+        position:
+          type: string
+        createdBy:
+          type: string
+      example:
+        company: Line Group
+        position: Frontend
+        createdBy: 65dfa16c403fdcb0e32148fc
+    UpdateJobRequest:
+      title: Update Job Request
+      required:
+        - company
+        - position
+      type: object
+      properties:
+        company:
+          type: string
+        position:
+          type: string
+      example:
+        company: Saaad
+        position: Backend
+  securitySchemes:
+    bearer:
+      type: http
+      scheme: bearer
+security: []
+tags:
+  - name: Authentication
+  - name: Jobs
