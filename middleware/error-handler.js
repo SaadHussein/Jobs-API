@@ -17,7 +17,7 @@ const errorHandlerMiddleware = (err, req, res, next) => {
   }
 
   if (err.name === 'CastError') {
-    customError.msg === `No Item Found With ID : ${err.value}`;
+    customError.msg = `No Item Found With ID : ${err.value}`;
     customError.statusCode = 404;
   }
 
